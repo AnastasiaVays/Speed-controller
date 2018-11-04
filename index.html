@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed Scrubber</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrapper">
+    <video class="flex" width="750" height="430" src="shivaree-thesnake.mp4" loop controls></video>
+    <p>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+
+<script>
+  const speed = document.querySelector('.speed');
+  const bar = speed.querySelector('.speed-bar');
+  const video = document.querySelector('.flex');
+
+  function handleMove(e) {
+      const y = e.pageY - this.offsetTop;
+      const percent = y / this.offsetHeight;
+      //console.log(percent);
+      const min = 0.4;
+      const max = 4;
+      const height = Math.round(percent * 100) + '%';
+      //console.log(height);
+      const playbackRate = percent * (max - min) + min; //to calculate the number to show on the bar
+      bar.style.height = height; 
+      bar.textContent = playbackRate.toFixed(2) + '×'; //avoid having a long num
+      video.playbackRate = playbackRate;
+      //console.log(playbackRate);
+    }
+
+  speed.addEventListener('mousemove', handleMove); //
+   //console.log(e);
+
+</script>
+</body>
+</html>
